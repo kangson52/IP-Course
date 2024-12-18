@@ -1,74 +1,74 @@
 <script>
-import ButtonComponent from './ButtonComponent.vue';
+import ShopButton from './ShopButton.vue';
+
 export default {
-    name: 'PromotionComponent',
-    props: ['title', 'color', 'btnColor', 'image'],
     components: {
-       ButtonComponent 
+        ShopButton
     },
-    data() {
-    return {
-      Button: {
-        title: 'Shop now', color: '#3BB77E', 
-      }
-    }
+    props: {
+        imgSrc: String,
+        label: String,
+        bgColor: String,
+        radiusColor: String,
+        buttonColor: String,
     },
     methods: {
-        shopNow(title) {
-             alert("Let's shop: "+title);
-
-            console.log("i", this.image)
-        }
+      shopNow() {
+        alert("Let's shop " + this.label);
+      },
     }
-
-
 }
 </script>
-<template>
-    <div class="wrapper" :style="{backgroundColor: color}">
-        <div class="txt" @click="shopNow(title)">
-            <div class="name">{{ title }}</div>
-            <ButtonComponent :color="btnColor"></ButtonComponent>
-        </div>
-        <div class="img-wrapper">
-            <img :src="image" alt="image" class="image">
-        </div>
-        
 
+<template>
+  <div class="container">
+    <div class="inner-container">
+      <div class="label quicksand-regular">
+            {{ label }}
+      </div>
+      <div class="button">
+              <ShopButton @click="shopNow" :bgColor="buttonColor"/>
+      </div>
     </div>
-    
+    <img :src="imgSrc" alt="">
+  </div>
 </template>
+
 <style scoped>
-.wrapper{
-    width: 30%;
-    height: 240px;
+  .container {
+    background-color: v-bind(bgColor);
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    width: 512px;
+    height: 300px;
     border-radius: 10px;
-}
-.txt{
+    border: 1px solid v-bind(radiusColor);
+    margin: 8px;
+  }
+
+  .inner-container {
+    width: inherit;
+    height: 160px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    gap: 20px;
-    text-transform: capitalize;
-    padding-left: 40px;
-}
-.img-wrapper{
-    width: 60%;
-    height: 100%;
-    display: flex;
-    justify-items: end;
-    border-radius: 10px;
-}
-.image{
-    width: 100%;
-    border-radius: 10px;
-}
-.name{
-    font: bold;
-    font-weight: 500;
-    font-size: 18px;
-}
+    align-content: center;
+    justify-content: space-between;
+    margin-left: 30px;
+  }
+
+  .container .label {
+    font-size: 28px;
+    color: #253D4E;
+  }
+
+  .container img {
+    width: 240px;
+    height: 240px;
+    align-self: end;
+  }
+
+  .button {
+    align-self: self-start;
+  }
 </style>
